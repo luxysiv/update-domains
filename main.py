@@ -33,11 +33,13 @@ def get_main_domain(domain):
 
 def get_redirected_domain(domain):
     """
-    Thử hai cấu hình header khác nhau nếu cần.
+    Kiểm tra xem domain có bị chuyển hướng hay không và trả về tên miền chính.
     """
     try:
+        logging.debug(f"Đang kiểm tra tên miền: {domain}")
+        # Danh sách các cấu hình header cần thử
         headers_list = [
-            {  # Header chi tiết
+            {  # Header đầy đủ
                 "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
                 "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
                 "Accept-Language": "en-US,en;q=0.5",
@@ -45,18 +47,23 @@ def get_redirected_domain(domain):
             },
             {  # Header tối giản
                 "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
-            }
+            },
+            None  # Không sử dụng header
         ]
-        
-        for scheme in ["http", "https"]:
+
+        for scheme in ["http", "https"]:  # Thử cả HTTP và HTTPS
             for headers in headers_list:
                 try:
                     url = f"{scheme}://{domain}"
-                    req = urllib.request.Request(url, headers=headers)
-                    with urllib.request.urlopen(req, timeout=5, context=ssl_context) as response:
-                        redirected_url = response.geturl()
-                        redirected_domain = urlparse(redirected_url).netloc
-                        redirected_domain = get_main_domain(redirected_domain)
+                    if headers is not None:
+                        req = urllib.request.Request(url, headers=headers)
+                    else:
+                        req = urllib.request.Request(url)  # Không thêm header
+
+                    with urllib.request.urlopen(req, timeout=15, context=ssl_context) as response:
+                        redirected_url = response.geturl()  # URL sau khi redirect (nếu có)
+                        redirected_domain = urlparse(redirected_url).netloc  # Lấy tên miền đầy đủ
+                        redirected_domain = get_main_domain(redirected_domain)  # Lấy tên miền chính
                         if redirected_domain != get_main_domain(domain):
                             logging.info(f"Tên miền {domain} chuyển hướng tới {redirected_domain}")
                         return redirected_domain
@@ -64,7 +71,8 @@ def get_redirected_domain(domain):
                     logging.warning(f"HTTP Error {e.code} với {scheme}://{domain} và header {headers}")
                 except Exception as e:
                     logging.debug(f"Lỗi với {scheme}://{domain} và header {headers}: {e}")
-        return get_main_domain(domain)
+        
+        return get_main_domain(domain)  # Giữ nguyên tên miền nếu tất cả thử nghiệm đều thất bại
     except Exception as e:
         logging.error(f"Lỗi khi kiểm tra tên miền {domain}: {e}")
         return get_main_domain(domain)
