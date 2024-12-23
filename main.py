@@ -121,8 +121,9 @@ def main():
             rule["condition"]["initiatorDomains"] = updated_domains
 
     try:
+        # Nén file JSON bằng cách loại bỏ khoảng trắng thừa
         with open("dnr-lang-vi.json", "w", encoding="utf-8") as file:
-            json.dump(data, file, ensure_ascii=False, indent=4)
+            json.dump(data, file, ensure_ascii=False, separators=(",", ":"))
         logging.info("Tệp JSON đã được cập nhật và lưu thành công.")
     except Exception as e:
         logging.critical(f"Lỗi khi lưu tệp JSON: {e}")
