@@ -263,12 +263,12 @@
             "initiatorDomains": [
                 "tuoitre.vn",
                 "thanhnien.vn",
-                "gamek.vn",
                 "afamily.vn",
+                "kenh14.vn",
                 "genk.vn",
                 "soha.vn",
                 "cafef.vn",
-                "kenh14.vn"
+                "gamek.vn"
             ],
             "resourceTypes": [
                 "script"
@@ -286,13 +286,13 @@
             "urlFilter": "/cms/arf-",
             "domainType": "thirdParty",
             "initiatorDomains": [
-                "tuoitre.vn",
-                "soha.vn",
-                "afamily.vn",
-                "gamek.vn",
-                "cafef.vn",
                 "kenh14.vn",
-                "genk.vn"
+                "soha.vn",
+                "genk.vn",
+                "gamek.vn",
+                "tuoitre.vn",
+                "cafef.vn",
+                "afamily.vn"
             ],
             "resourceTypes": [
                 "script"
@@ -309,11 +309,11 @@
         "condition": {
             "urlFilter": "/core/*",
             "initiatorDomains": [
-                "gamek.vn",
                 "cafef.vn",
+                "thanhnien.vn",
                 "genk.vn",
                 "kenh14.vn",
-                "thanhnien.vn"
+                "gamek.vn"
             ],
             "resourceTypes": [
                 "script"
@@ -383,20 +383,20 @@
         "condition": {
             "urlFilter": "/i.imgur.com/*.gif",
             "initiatorDomains": [
+                "phimlongtieng.net",
                 "90phutz46.live",
-                "phimdinhcaoz.com",
-                "vebozf.cc",
-                "spbsoftwarehouse.com",
-                "xemtivingon.org",
-                "cakhiai.cc",
                 "xoilacxj.cc",
+                "vebozf.cc",
+                "phimdinhcaoz.com",
+                "spbsoftwarehouse.com",
+                "cakhiai.cc",
                 "mitomvf.cc",
                 "rakhoii.cc",
-                "phimdinhcao.net",
-                "keonhacai55.cc",
+                "xemtivingon.org",
                 "phimchaua.com",
                 "motphimww.net",
-                "phimlongtieng.net",
+                "phimdinhcao.net",
+                "keonhacai55.cc",
                 "phimmoi.ing",
                 "listnhacai88.com",
                 "plcdn.xyz"
@@ -456,8 +456,8 @@
         "condition": {
             "urlFilter": "/pop.js",
             "initiatorDomains": [
-                "ohaytv.ad",
-                "motchill.soy"
+                "motchill.soy",
+                "ohaytv.ad"
             ],
             "resourceTypes": [
                 "script"
@@ -645,13 +645,13 @@
         "condition": {
             "urlFilter": "/tracking_info.gif",
             "initiatorDomains": [
-                "genk.vn",
                 "afamily.vn",
-                "soha.vn",
-                "tuoitre.vn",
-                "cafef.vn",
-                "gamek.vn",
                 "thanhnien.vn",
+                "cafef.vn",
+                "tuoitre.vn",
+                "gamek.vn",
+                "soha.vn",
+                "genk.vn",
                 "kenh14.vn"
             ],
             "isUrlFilterCaseSensitive": false
@@ -683,14 +683,14 @@
         "condition": {
             "urlFilter": "/vast.js",
             "initiatorDomains": [
-                "hoathinhtq.site",
                 "tuphim.net",
-                "hayhaytv.org",
-                "tvzinghd.co",
+                "hoathinhtq.site",
                 "boctem.com",
+                "tvzinghd.co",
                 "cloudbeta.win",
                 "tvhay26.com",
-                "phimdacap.tv"
+                "phimdacap.tv",
+                "hayhaytv.org"
             ],
             "resourceTypes": [
                 "script"
@@ -1035,11 +1035,11 @@
         "condition": {
             "urlFilter": "||blogger.googleusercontent.com^",
             "initiatorDomains": [
+                "hayphim.cc",
                 "hoathinhtq.site",
                 "hhh3d.tv",
-                "hayphim.cc",
-                "hoathinh3dtq.site",
                 "xem15.com",
+                "hoathinh3dtq.site",
                 "hhtm.site",
                 "phimhoathinh3d.vip",
                 "yanhh3d.tv",
@@ -1141,9 +1141,9 @@
         "condition": {
             "urlFilter": "||cdn.lfastcdn.com^*.gif",
             "initiatorDomains": [
-                "90phutz46.live",
-                "mitomvf.cc",
                 "spbsoftwarehouse.com",
+                "mitomvf.cc",
+                "90phutz46.live",
                 "rakhoii.cc",
                 "90phutvs.cc",
                 "cakhiai.cc",
@@ -1195,14 +1195,14 @@
         "condition": {
             "urlFilter": "||cdn2-img.net^*.gif",
             "initiatorDomains": [
-                "dongchill.pro",
+                "dongphim.now",
                 "bichill.lat",
+                "biphim.lat",
                 "motchill.vote",
                 "hhpanda.video",
-                "biphim.lat",
-                "dongphim.now",
+                "subnhanhvl.site",
                 "subnhanh.now",
-                "subnhanhvl.site"
+                "dongchill.pro"
             ],
             "resourceTypes": [
                 "image"
@@ -1820,11 +1820,11 @@
         "condition": {
             "urlFilter": "||i.imgur.com^",
             "initiatorDomains": [
-                "diendanit.net",
                 "hoathinhtq.site",
+                "diendanit.net",
                 "tructiepnba.me",
-                "ssphim.us",
                 "nhacdj.vn",
+                "ssphim.us",
                 "phimbet.biz",
                 "banbuondalat.com"
             ],
@@ -1847,15 +1847,15 @@
                 "hoathinh4k3.net",
                 "vtipster.net",
                 "phimmoi.club",
-                "phimmoiaz.cc",
                 "dailyphimz.com",
+                "phimmoiaz.cc",
                 "ghienphim.now",
                 "ketqua247vn.vip",
                 "phimgichill.net",
-                "tvhayhd.tv",
+                "vutruphim.tv",
                 "huphimtv.com",
                 "mythethao.net",
-                "vutruphim.tv"
+                "tvhayhd.tv"
             ],
             "resourceTypes": [
                 "image"
@@ -2112,8 +2112,8 @@
             "urlFilter": "||lh3.googleusercontent.com/*=s0",
             "initiatorDomains": [
                 "hoathinh4k3.net",
-                "animevietsub.cx",
-                "hayghe.me"
+                "hayghe.me",
+                "animevietsub.cx"
             ],
             "resourceTypes": [
                 "image"
@@ -2206,8 +2206,8 @@
         "condition": {
             "urlFilter": "||mediastation.live^*.gif",
             "initiatorDomains": [
-                "mediastation.live",
                 "mannhan16.pro",
+                "mediastation.live",
                 "mannhan16.pro"
             ],
             "resourceTypes": [
@@ -2682,8 +2682,8 @@
         "condition": {
             "urlFilter": "||quoracdn.net^",
             "initiatorDomains": [
-                "phimdinhcaoz.com",
                 "phimlongtieng.net",
+                "phimdinhcaoz.com",
                 "phimchaua.com",
                 "phimdinhcao.com"
             ],
@@ -2745,8 +2745,8 @@
             "urlFilter": "||s2.truyentot.com^*.gif",
             "initiatorDomains": [
                 "hhvsub.com",
-                "hhtq5.vip",
                 "hhtq8.vip",
+                "hhtq5.vip",
                 "hhtq3d.net"
             ],
             "resourceTypes": [
@@ -3174,10 +3174,10 @@
         "condition": {
             "urlFilter": "||tracker.idocdn.com^",
             "initiatorDomains": [
+                "abysscdn.com",
+                "freeplayervideo.com",
                 "playhydrax.com",
                 "player-cdn.com",
-                "freeplayervideo.com",
-                "abysscdn.com",
                 "redirect-ads.com"
             ],
             "isUrlFilterCaseSensitive": false
@@ -4959,8 +4959,8 @@
         "condition": {
             "urlFilter": "||googleads.g.doubleclick.net/pagead/",
             "initiatorDomains": [
-                "cungthi.online",
-                "romgoc.net"
+                "romgoc.net",
+                "cungthi.online"
             ],
             "isUrlFilterCaseSensitive": false
         },
@@ -4977,9 +4977,9 @@
                 "game24h.vn",
                 "sctvonline.vn",
                 "vieon.vn",
-                "com.vn",
+                "danet.vn",
                 "fptplay.vn",
-                "danet.vn"
+                "com.vn"
             ],
             "resourceTypes": [
                 "script",
@@ -5084,67 +5084,67 @@
             "urlFilter": "||pagead2.googlesyndication.com^",
             "initiatorDomains": [
                 "khuchotot.com",
-                "thuthuatmeovat.net",
-                "truyenaudiocv.org",
-                "cungthi.online",
-                "lehait.net",
-                "romgoc.net",
-                "traderviet.tv",
-                "sum.vn",
-                "1shortlink.com",
-                "blogspot.com",
-                "thelanb.com",
-                "toeicexamstore.xyz",
-                "ngohoanganhtuan.com",
-                "ngohoanganhtuan.net",
-                "phuongtrinhhoahoc.com",
-                "nhacsong.pro",
-                "ichi.pro",
-                "gvnvh.net",
-                "gocmod.com",
-                "vungoctuan.vn",
                 "kites.vn",
-                "dafontvn.com",
-                "vnjpclub.com",
+                "truyenaudiocv.org",
+                "lehait.net",
+                "thuthuatmeovat.net",
+                "sum.vn",
+                "romgoc.net",
+                "thelanb.com",
+                "traderviet.tv",
+                "1shortlink.com",
+                "phuongtrinhhoahoc.com",
+                "ngohoanganhtuan.com",
+                "toeicexamstore.xyz",
+                "ngohoanganhtuan.net",
+                "nhacsong.pro",
+                "blogspot.com",
+                "cungthi.online",
+                "gocmod.com",
                 "sesenblog.com",
+                "gvnvh.net",
+                "ichi.pro",
                 "filess.us",
+                "vnjpclub.com",
                 "kientruc360.info",
-                "xaydungplus.com",
-                "codevn.net",
-                "anhdep24.com",
+                "dafontvn.com",
                 "letrongdai.vn",
+                "codevn.net",
+                "xaydungplus.com",
+                "anhdep24.com",
                 "windowslite.net",
-                "quangcaoyenbai.com",
-                "vongquaymayman.one",
                 "traffic1s.com",
+                "quangcaoyenbai.com",
                 "audiotruyenfull.com",
-                "minhpc.com",
                 "diendancauduong.com",
-                "web1s.com",
-                "web1s.asia",
                 "toilaquantri.com",
+                "web1s.com",
+                "vongquaymayman.one",
                 "anonyviet.com",
-                "taisachonthi.com",
-                "ipacrack.com",
+                "web1s.asia",
+                "vungoctuan.vn",
                 "kiemlua.vn",
-                "tintuc247.top",
-                "mifirm.net",
-                "nguonhd.net",
+                "minhpc.com",
+                "ipacrack.com",
+                "taisachonthi.com",
                 "tiengnhatdongian.com",
-                "vanhoatamlinh.com",
-                "duan24h.net",
-                "yhocdata.com",
-                "ycongnghe.com",
-                "hoctoan123.com",
+                "mifirm.net",
+                "tintuc247.top",
                 "iosviet.com",
-                "tromcap.com",
+                "nguonhd.net",
                 "khotailieuonthi247.com",
-                "edu.vn",
+                "vanhoatamlinh.com",
+                "yhocdata.com",
+                "hoctoan123.com",
                 "phongroblox.com",
+                "ycongnghe.com",
+                "edu.vn",
                 "thitotnghiepthpt.vn",
+                "duan24h.net",
                 "giavang.net",
                 "com.vn",
-                "lnpchannel.com"
+                "lnpchannel.com",
+                "tromcap.com"
             ],
             "resourceTypes": [
                 "script",
@@ -5163,9 +5163,9 @@
         "condition": {
             "urlFilter": "||player.sohatv.vn/resource/",
             "initiatorDomains": [
-                "cafef.vn",
                 "gamek.vn",
                 "genk.vn",
+                "cafef.vn",
                 "kenh14.vn"
             ],
             "resourceTypes": [
@@ -5395,12 +5395,12 @@
             "urlFilter": "/theme/custom.int.js",
             "initiatorDomains": [
                 "clipsex.xxx",
-                "ditnhau.cc",
-                "phimsexvietnam.app",
-                "phimsexviet.io",
-                "clipsex.cam",
                 "phimsexnhanh.tv",
+                "ditnhau.cc",
+                "clipsex.cam",
+                "phimsexvietnam.app",
                 "coiphimsex.net",
+                "phimsexviet.io",
                 "tuoi69.store",
                 "javhay.site",
                 "top1sex.me"
@@ -5421,10 +5421,10 @@
             "urlFilter": "/wp-content/uploads/*.gif",
             "initiatorDomains": [
                 "tuoinungvn.org",
+                "viet69.art",
                 "tuoi69.fyi",
                 "phevkl.to",
-                "teletiengviet.com",
-                "viet69.ad"
+                "teletiengviet.com"
             ],
             "resourceTypes": [
                 "image"
@@ -5505,10 +5505,10 @@
         "condition": {
             "urlFilter": "||cdn-01.w3img.com^*.gif",
             "initiatorDomains": [
-                "phimsexvl69.net",
-                "sexsoc.info",
                 "vlxxai.net",
+                "sexsoc.info",
                 "khosex.blog",
+                "phimsexvl69.net",
                 "javhd.tech",
                 "javhd.social"
             ],
@@ -5614,9 +5614,9 @@
         "condition": {
             "urlFilter": "||discordapp.",
             "initiatorDomains": [
-                "phym18.lol",
                 "phimsexsub.ink",
                 "phim18vip.vip",
+                "phym18.lol",
                 "avvietsub.info"
             ],
             "resourceTypes": [
@@ -5670,11 +5670,11 @@
             "initiatorDomains": [
                 "phym18.lol",
                 "sexkhongchehd.com",
-                "xamvn.taxi",
                 "sexkhongchemoi.com",
                 "phim18hd.in",
                 "bimmup.tv",
-                "fullcliphot.com"
+                "fullcliphot.com",
+                "ovh.ca"
             ],
             "resourceTypes": [
                 "image"
@@ -5766,8 +5766,8 @@
             "urlFilter": "||jav.sexsub.icu^*.gif",
             "initiatorDomains": [
                 "tuoi69.store",
-                "javhay.site",
                 "vietxxx.xyz",
+                "javhay.site",
                 "sexsub.icu"
             ],
             "resourceTypes": [
@@ -5946,8 +5946,8 @@
         "condition": {
             "urlFilter": "||qcvip.xyz^",
             "initiatorDomains": [
-                "phevkl.to",
-                "viet69.ad"
+                "viet69.art",
+                "phevkl.to"
             ],
             "resourceTypes": [
                 "script"
@@ -5978,15 +5978,15 @@
         "condition": {
             "urlFilter": "||quoracdn.net^",
             "initiatorDomains": [
+                "phim18vip.vip",
+                "viet69.art",
                 "vlxx.tech",
+                "sexhihiz.me",
                 "vlmupsex.com",
                 "sieudam.site",
-                "sexhihiz.me",
-                "phim18vip.vip",
                 "phimsexchichnhau.net",
                 "pheclipsex.net",
                 "phevkl.to",
-                "viet69.ad",
                 "vlxyz.tube"
             ],
             "resourceTypes": [
