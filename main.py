@@ -121,7 +121,7 @@ def main():
             rule["condition"]["initiatorDomains"] = updated_domains
 
     try:
-        with open("updated-dnr-lang-vi.json", "w", encoding="utf-8") as file:
+        with open("dnr-lang-vi.json", "w", encoding="utf-8") as file:
             json.dump(data, file, ensure_ascii=False, indent=4)
         logging.info("Tệp JSON đã được cập nhật và lưu thành công.")
     except Exception as e:
