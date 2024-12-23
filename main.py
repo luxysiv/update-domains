@@ -1,4 +1,5 @@
 import urllib.request
+import ssl
 import json
 import logging
 from urllib.parse import urlparse
@@ -15,6 +16,11 @@ logging.basicConfig(
     ]
 )
 
+# Tạo context SSL
+ssl_context = ssl.create_default_context()
+ssl_context.check_hostname = False  # Bỏ qua kiểm tra hostname
+ssl_context.verify_mode = ssl.CERT_NONE  # Bỏ qua xác minh chứng chỉ
+
 def get_main_domain(domain):
     """
     Lấy tên miền chính (domain + suffix), loại bỏ 'www.' nếu có.
@@ -23,8 +29,7 @@ def get_main_domain(domain):
     if domain.startswith("www."):
         domain = domain[4:]  # Loại bỏ 'www.'
     parts = domain.split('.')
-    # Lấy 2 phần cuối cùng của tên miền (ví dụ: "example.com")
-    return '.'.join(parts[-2:])
+    return '.'.join(parts[-2:])  # Lấy 2 phần cuối cùng của tên miền
 
 def get_redirected_domain(domain):
     """
@@ -32,27 +37,33 @@ def get_redirected_domain(domain):
     """
     try:
         logging.debug(f"Đang kiểm tra tên miền: {domain}")
-        url = f"http://{domain}"  # Chuẩn hóa URL với http
-        headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"}
-        req = urllib.request.Request(url, headers=headers)
-        with urllib.request.urlopen(req, timeout=5) as response:
-            redirected_url = response.geturl()  # URL sau khi redirect (nếu có)
-            redirected_domain = urlparse(redirected_url).netloc  # Lấy tên miền đầy đủ
-            # Lấy tên miền chính (domain + suffix)
-            redirected_domain = get_main_domain(redirected_domain)
-            if redirected_domain != get_main_domain(domain):
-                logging.info(f"Tên miền {domain} chuyển hướng tới {redirected_domain}")
-            return redirected_domain
+        for scheme in ["http", "https"]:  # Thử cả HTTP và HTTPS
+            try:
+                url = f"{scheme}://{domain}"
+                headers = {
+                    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+                }
+                req = urllib.request.Request(url, headers=headers)
+                with urllib.request.urlopen(req, timeout=5, context=ssl_context) as response:
+                    redirected_url = response.geturl()  # URL sau khi redirect (nếu có)
+                    redirected_domain = urlparse(redirected_url).netloc  # Lấy tên miền đầy đủ
+                    redirected_domain = get_main_domain(redirected_domain)  # Lấy tên miền chính
+                    if redirected_domain != get_main_domain(domain):
+                        logging.info(f"Tên miền {domain} chuyển hướng tới {redirected_domain}")
+                    return redirected_domain
+            except Exception as e:
+                logging.debug(f"Thử {scheme}://{domain} thất bại: {e}")
+        return get_main_domain(domain)  # Giữ nguyên tên miền nếu tất cả đều thất bại
     except Exception as e:
         logging.error(f"Lỗi khi kiểm tra tên miền {domain}: {e}")
-        return get_main_domain(domain)  # Giữ nguyên tên miền cũ nếu có lỗi
+        return get_main_domain(domain)
 
 def process_domains(domains):
     """
     Kiểm tra danh sách tên miền bằng đa luồng và trả về danh sách các tên miền đã cập nhật.
     """
     updated_domains = []
-    with ThreadPoolExecutor(max_workers=10) as executor:  # Tối đa 10 luồng
+    with ThreadPoolExecutor(max_workers=10) as executor:
         future_to_domain = {executor.submit(get_redirected_domain, domain): domain for domain in domains}
         for future in as_completed(future_to_domain):
             try:
@@ -63,7 +74,6 @@ def process_domains(domains):
     return updated_domains
 
 def main():
-    # Đọc tệp JSON
     try:
         with open("dnr-lang-vi.json", "r", encoding="utf-8") as file:
             data = json.load(file)
@@ -72,16 +82,13 @@ def main():
         logging.critical(f"Lỗi khi đọc tệp JSON: {e}")
         return
 
-    # Kiểm tra và cập nhật initiatorDomains
     for i, rule in enumerate(data):
         logging.debug(f"Đang xử lý rule {i+1}/{len(data)}")
         if "initiatorDomains" in rule.get("condition", {}):
             domains = rule["condition"]["initiatorDomains"]
-            # Xử lý đa luồng để kiểm tra redirect của các domain
             updated_domains = process_domains(domains)
             rule["condition"]["initiatorDomains"] = updated_domains
 
-    # Lưu kết quả vào tệp mới
     try:
         with open("updated-dnr-lang-vi.json", "w", encoding="utf-8") as file:
             json.dump(data, file, ensure_ascii=False, indent=4)
