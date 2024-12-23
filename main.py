@@ -5,6 +5,7 @@ import logging
 from urllib.parse import urlparse
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime
+from time import sleep
 
 # Cấu hình logging
 logging.basicConfig(
@@ -61,14 +62,25 @@ def get_redirected_domain(domain):
                         req = urllib.request.Request(url)  # Không thêm header
 
                     with urllib.request.urlopen(req, timeout=15, context=ssl_context) as response:
+                        # Kiểm tra mã lỗi và xử lý chuyển hướng
+                        if response.status == 307:  # Nếu nhận được mã lỗi 307 (Redirect tạm thời)
+                            new_url = response.geturl()
+                            logging.info(f"Chuyển hướng từ {domain} tới {new_url}")
+                            return get_main_domain(urlparse(new_url).netloc)
+                        
                         redirected_url = response.geturl()  # URL sau khi redirect (nếu có)
                         redirected_domain = urlparse(redirected_url).netloc  # Lấy tên miền đầy đủ
                         redirected_domain = get_main_domain(redirected_domain)  # Lấy tên miền chính
                         if redirected_domain != get_main_domain(domain):
                             logging.info(f"Tên miền {domain} chuyển hướng tới {redirected_domain}")
                         return redirected_domain
+
                 except urllib.error.HTTPError as e:
-                    logging.warning(f"HTTP Error {e.code} với {scheme}://{domain} và header {headers}")
+                    if e.code == 521:  # Lỗi 521 (Server không phản hồi)
+                        logging.warning(f"Error 521: Server không phản hồi cho {scheme}://{domain}. Thử lại sau.")
+                        sleep(5)  # Tạm dừng 5 giây và thử lại
+                    else:
+                        logging.warning(f"HTTP Error {e.code} với {scheme}://{domain} và header {headers}")
                 except Exception as e:
                     logging.debug(f"Lỗi với {scheme}://{domain} và header {headers}: {e}")
         
