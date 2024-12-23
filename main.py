@@ -33,33 +33,38 @@ def get_main_domain(domain):
 
 def get_redirected_domain(domain):
     """
-    Kiểm tra xem domain có bị chuyển hướng hay không và trả về tên miền chính.
+    Thử hai cấu hình header khác nhau nếu cần.
     """
     try:
-        logging.debug(f"Đang kiểm tra tên miền: {domain}")
-        for scheme in ["http", "https"]:  # Thử cả HTTP và HTTPS
-            try:
-                url = f"{scheme}://{domain}"
-                headers = {
-                    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
-                    "Referer": f"{scheme}://{domain}",
-                    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
-                    "Accept-Language": "en-US,en;q=0.5",
-                    "Connection": "keep-alive"
-                }
-                req = urllib.request.Request(url, headers=headers)
-                with urllib.request.urlopen(req, timeout=5, context=ssl_context) as response:
-                    redirected_url = response.geturl()  # URL sau khi redirect (nếu có)
-                    redirected_domain = urlparse(redirected_url).netloc  # Lấy tên miền đầy đủ
-                    redirected_domain = get_main_domain(redirected_domain)  # Lấy tên miền chính
-                    if redirected_domain != get_main_domain(domain):
-                        logging.info(f"Tên miền {domain} chuyển hướng tới {redirected_domain}")
-                    return redirected_domain
-            except urllib.error.HTTPError as e:
-                logging.warning(f"HTTP Error {e.code} khi thử {scheme}://{domain}")
-            except Exception as e:
-                logging.debug(f"Thử {scheme}://{domain} thất bại: {e}")
-        return get_main_domain(domain)  # Giữ nguyên tên miền nếu tất cả đều thất bại
+        headers_list = [
+            {  # Header chi tiết
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+                "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+                "Accept-Language": "en-US,en;q=0.5",
+                "Connection": "keep-alive"
+            },
+            {  # Header tối giản
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+            }
+        ]
+        
+        for scheme in ["http", "https"]:
+            for headers in headers_list:
+                try:
+                    url = f"{scheme}://{domain}"
+                    req = urllib.request.Request(url, headers=headers)
+                    with urllib.request.urlopen(req, timeout=5, context=ssl_context) as response:
+                        redirected_url = response.geturl()
+                        redirected_domain = urlparse(redirected_url).netloc
+                        redirected_domain = get_main_domain(redirected_domain)
+                        if redirected_domain != get_main_domain(domain):
+                            logging.info(f"Tên miền {domain} chuyển hướng tới {redirected_domain}")
+                        return redirected_domain
+                except urllib.error.HTTPError as e:
+                    logging.warning(f"HTTP Error {e.code} với {scheme}://{domain} và header {headers}")
+                except Exception as e:
+                    logging.debug(f"Lỗi với {scheme}://{domain} và header {headers}: {e}")
+        return get_main_domain(domain)
     except Exception as e:
         logging.error(f"Lỗi khi kiểm tra tên miền {domain}: {e}")
         return get_main_domain(domain)
