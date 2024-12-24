@@ -12,8 +12,7 @@ logging.basicConfig(
     level=logging.DEBUG,
     format="%(asctime)s [%(levelname)s] %(message)s",
     handlers=[
-        logging.StreamHandler(),
-        logging.FileHandler("domain_check.log", encoding="utf-8")
+        logging.StreamHandler()
     ]
 )
 
@@ -46,11 +45,7 @@ def get_redirected_domain(domain):
                 "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
                 "Accept-Language": "vi-VN,vi;q=0.9,en;q=0.8",
                 "Connection": "keep-alive",
-            },
-            {  # Header đơn giản
-                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
-            },
-            None  # Không sử dụng header
+            }
         ]
 
         for headers in headers_list:
