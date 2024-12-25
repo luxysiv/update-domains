@@ -15,14 +15,11 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Install cloudflared for DoH
+      - name: Download and Install cloudflared
         run: |
-          sudo apt-get update
-          sudo apt-get install -y curl gnupg
-          curl -fsSL https://pkg.cloudflare.com/cloudflare-main.gpg | sudo tee /etc/apt/trusted.gpg.d/cloudflare.asc
-          echo "deb [signed-by=/etc/apt/trusted.gpg.d/cloudflare.asc] https://pkg.cloudflare.com/cloudflare-main/deb/ all main" | sudo tee /etc/apt/sources.list.d/cloudflare-main.list
-          sudo apt-get update
-          sudo apt-get install -y cloudflared
+          curl -LO https://github.com/cloudflare/cloudflared/releases/download/2024.12.2/cloudflared-linux-amd64
+          sudo mv cloudflared-linux-amd64 /usr/local/bin/cloudflared
+          sudo chmod +x /usr/local/bin/cloudflared
 
       - name: Start cloudflared DNS over HTTPS
         run: |
