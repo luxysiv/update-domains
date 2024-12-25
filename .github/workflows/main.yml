@@ -18,9 +18,9 @@ jobs:
       - name: Install cloudflared for DoH
         run: |
           sudo apt-get update
-          sudo apt-get install -y apt-transport-https curl
-          curl -fsSL https://pkg.cloudflare.com/cloudflare-main.gpg | sudo gpg --dearmor -o /usr/share/keyrings/cloudflare-archive-keyring.gpg
-          echo "deb [signed-by=/usr/share/keyrings/cloudflare-archive-keyring.gpg] https://pkg.cloudflare.com/cloudflare-main/deb/ all main" | sudo tee /etc/apt/sources.list.d/cloudflare-main.list
+          sudo apt-get install -y curl gnupg
+          curl -fsSL https://pkg.cloudflare.com/cloudflare-main.gpg | sudo tee /etc/apt/trusted.gpg.d/cloudflare.asc
+          echo "deb [signed-by=/etc/apt/trusted.gpg.d/cloudflare.asc] https://pkg.cloudflare.com/cloudflare-main/deb/ all main" | sudo tee /etc/apt/sources.list.d/cloudflare-main.list
           sudo apt-get update
           sudo apt-get install -y cloudflared
 
