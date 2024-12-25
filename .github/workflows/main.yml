@@ -1,11 +1,11 @@
-name: Cập nhật tên miền
+name: Cập nhật tên miền 
 on:
   push:
   schedule:
     - cron: "0 0 * * *"
 jobs:
   run:
-    name: Cập nhật tên miền
+    name: Cập nhật tên miền 
     permissions: write-all
     runs-on: ubuntu-latest
 
@@ -14,21 +14,6 @@ jobs:
         uses: actions/checkout@main
         with:
           fetch-depth: 0
-
-      - name: Download and Install cloudflared
-        run: |
-          curl -LO https://github.com/cloudflare/cloudflared/releases/download/2024.12.2/cloudflared-linux-amd64
-          sudo mv cloudflared-linux-amd64 /usr/local/bin/cloudflared
-          sudo chmod +x /usr/local/bin/cloudflared
-
-      - name: Start cloudflared DNS over HTTPS
-        run: |
-          sudo cloudflared proxy-dns --address 127.0.0.1 --port 5053 --upstream https://1.1.1.1/dns-query &
-          sleep 5
-
-      - name: Configure DNS resolver to use cloudflared (DoH)
-        run: |
-          sudo bash -c "echo 'nameserver 127.0.0.1' > /etc/resolv.conf"
 
       - name: Install Python
         uses: actions/setup-python@main
